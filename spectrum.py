@@ -32,9 +32,9 @@ class Spectrum(object):
         if stop is not None and not isinstance(stop, float):
             raise TypeError
         if start is None:
-            start = self.spectrum[0].min()
+            start = self.spectrum[0, :].min()
         if stop is None:
-            stop = self.spectrum[0].max()
+            stop = self.spectrum[0, :].max()
 
         idx = (self.spectrum[0, :] >= start) & (self.spectrum[0, :] <= stop)
         return integrate.trapz(self.spectrum[1, idx], self.spectrum[0, idx])
@@ -45,9 +45,9 @@ class Spectrum(object):
         if stop is not None and not isinstance(stop, float):
             raise TypeError
         if start is None:
-            start = self.spectrum[0].min()
+            start = self.spectrum[0, :].min()
         if stop is None:
-            stop = self.spectrum[0].max()
+            stop = self.spectrum[0, :].max()
 
         idx = np.argmax(np.max(self.spectrum, axis=0))
         return self.spectrum[0, idx]

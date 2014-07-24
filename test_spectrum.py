@@ -37,14 +37,19 @@ class TestSpectrum(unittest.TestCase):
         self.assertRaises(TypeError, self.s.integrate, start=0.5, stop=1)
 
     def test_integrate(self):
-        self.assertAlmostEqual(self.s.integrate(0.0, 0.5), 0.5, places=2)
-        self.assertAlmostEqual(self.s.integrate(0.5, 1.), 0.5, places=2)
+        self.assertAlmostEqual(self.s.integrate(), 1, places=1)
+        self.assertAlmostEqual(self.s.integrate(start=0.5), 0.5, places=1)
+        self.assertAlmostEqual(self.s.integrate(start=0.0, stop=0.5), 0.5, places=2)
+        self.assertAlmostEqual(self.s.integrate(start=0.5, stop=1.), 0.5, places=2)
 
     def test_peak(self):
-        self.assertAlmostEqual(self.s.peak(0.25, 0.8), 0.5, places=2)
+        self.assertAlmostEqual(self.s.peak(), 0.5, places=2)
+        self.assertAlmostEqual(self.s.peak(start=0.3), 0.5, places=2)
+        self.assertAlmostEqual(self.s.peak(start=0.25, stop=0.8), 0.5, places=2)
 
     def test_centroid(self):
-        self.assertAlmostEqual(self.s.centroid(0.25, 0.75), 0.5, places=2)
+        self.assertAlmostEqual(self.s.centroid(start=0.25, stop=0.75), 0.5, places=2)
+        self.assertAlmostEqual(self.s.centroid(start=0.5), 0.566, places=2)
 
 
 if __name__ == '__main__':
