@@ -36,3 +36,12 @@ def match_data(isd_data):
     wavelength = [wave.split('\t')[0] for wave in spectra_match]
     intensity = [power.split('\t')[1] for power in spectra_match]
     return np.array([wavelength, intensity]).astype(np.float64)
+
+
+def import_cas_isd(filename):
+    with open(filename) as f:
+        isd_data = f.read()
+        xy = match_batch_id(isd_data)
+        batch_id = match_batch_id(isd_data)
+        timestamp = match_timestamp(isd_data)
+        return spectrum.Spectrum(xy, description=batch_id, timestamp=timestamp)
